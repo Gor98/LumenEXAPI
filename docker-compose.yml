@@ -1,0 +1,56 @@
+version: '3.7'
+
+services:
+  lumen-api-core:
+    container_name: lumen-api-core
+    build:
+      context: .
+      dockerfile: docker/core/Dockerfile
+    depends_on:
+      - lumen-api-db
+    env_file:
+      - ./.env
+    expose:
+      - "${PHP_PORT}"
+    volumes:
+      - ./:/var/www
+      - ./docker/core/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - lumen-api
+
+  lumen-api-db:
+    image: postgres:12
+    container_name: lumen-api-db
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    ports:
+      - "${DB_PORT}:${DB_CONTAINER_PORT}"
+    restart: always
+    volumes:
+      - .db-data:/var/lib/postgresql/data
+    networks:
+      - lumen-api
+
+  lumen-api-webserver:
+    image: nginx:1.17
+    container_name: lumen-api-nginx
+    restart: unless-stopped
+    ports:
+      - "${CORE_NGINX_PORT}:${CONTAINER_NGINX_PORT}"
+    volumes:
+      - ./:/var/www
+      - ./docker/core/conf.d:/etc/nginx/conf.d
+    links:
+      - lumen-api-core
+    depends_on:
+      - lumen-api-core
+    networks:
+      lumen-api:
+        aliases:
+          - lumen-api.loc
+
+networks:
+  lumen-api:
+    driver: bridge

@@ -2,9 +2,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\User;
+use App\Common\Tools\Setting;
+use App\Modules\Auth\Entities\User;
 use Faker\Generator as Faker;
-
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -19,6 +21,9 @@ use Faker\Generator as Faker;
 $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'email' => $faker->email,
+        'email' => $faker->unique()->safeEmail,
+        'email_verified_at' => Carbon::now(),
+        'password' => Setting::USER_PASS,
+        'remember_token' => Str::random(10)
     ];
 });

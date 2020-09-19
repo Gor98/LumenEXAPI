@@ -2,7 +2,6 @@
 
 namespace App\Common\Bases;
 
-use App\Common\Contracts\RepositoryContract;
 use App\Common\Exceptions\RepositoryException;
 use App\Common\Tools\Setting;
 use Exception;

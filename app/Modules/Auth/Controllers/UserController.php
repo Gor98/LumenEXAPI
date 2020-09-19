@@ -7,7 +7,7 @@ use App\Common\Bases\Controller;
 use App\Common\Tools\APIResponse;
 use App\Modules\Auth\Actions\UserAction;
 use App\Modules\Auth\Entities\User;
-use App\Modules\Auth\Requests\UserRequest;
+use App\Modules\Auth\Validators\UserRequest;
 use App\Modules\Auth\Resource\User\UserCollection;
 use App\Modules\Auth\Resource\User\User as UserResource;
 use Illuminate\Http\JsonResponse;

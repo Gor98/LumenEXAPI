@@ -4,10 +4,10 @@
 namespace App\Modules\Auth\Actions;
 
 use App\Common\Exceptions\RepositoryException;
-use App\Modules\Auth\Requests\AuthRequest;
-use App\Modules\Auth\Requests\RegisterRequest;
+use App\Modules\Auth\Validators\RegisterRequest;
 use App\Modules\Auth\Services\UserService;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 /**
  * Class AuthAction
@@ -30,10 +30,10 @@ class AuthAction
     }
 
     /**
-     * @param AuthRequest $request
+     * @param Request $request
      * @return object
      */
-    public function loginUser(AuthRequest $request): object
+    public function loginUser(Request $request): object
     {
         return $this->userService->login($request->only(['email', 'password']));
     }

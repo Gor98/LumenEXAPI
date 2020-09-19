@@ -10,8 +10,8 @@ use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\UnauthorizedException;
-use phpDocumentor\Reflection\Types\Mixed_;
-
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
 /**
  * Class UserService
  * @package App\Modules\Auth\Services
@@ -22,14 +22,17 @@ class UserService extends Service
      * @var UserRepository
      */
     private UserRepository $userRepository;
+    private JWTAuth $jwt;
 
     /**
      * UserService constructor.
      * @param UserRepository $userRepository
+     * @param JWTAuth $jwt
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, JWTAuth $jwt)
     {
         $this->userRepository = $userRepository;
+        $this->jwt = $jwt;
     }
 
     /**

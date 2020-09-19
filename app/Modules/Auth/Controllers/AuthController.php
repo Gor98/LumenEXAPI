@@ -7,8 +7,8 @@ use App\Common\Bases\Controller;
 use App\Common\Exceptions\RepositoryException;
 use App\Common\Tools\APIResponse;
 use App\Modules\Auth\Actions\AuthAction;
-use App\Modules\Auth\Requests\AuthRequest;
-use App\Modules\Auth\Requests\RegisterRequest;
+use App\Modules\Auth\Validators\AuthValidator;
+use App\Modules\Auth\Validators\RegisterRequest;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use App\Modules\Auth\Resource\Auth as AuthResource;
@@ -35,13 +35,13 @@ class AuthController extends Controller
     }
 
     /**
-     * @param AuthRequest $request
+     * @param AuthValidator $validator
      * @return JsonResponse
      */
-    public function login(AuthRequest $request): JsonResponse
+    public function login(AuthValidator $validator): JsonResponse
     {
         return APIResponse::successResponse(
-            new AuthResource($this->authAction->loginUser($request)),
+            new AuthResource($this->authAction->loginUser($validator->getRequest())),
             Response::HTTP_OK
         );
     }

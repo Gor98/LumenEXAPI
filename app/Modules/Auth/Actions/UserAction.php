@@ -4,9 +4,9 @@
 namespace App\Modules\Auth\Actions;
 
 use App\Common\Exceptions\RepositoryException;
-use App\Modules\Auth\Requests\AuthRequest;
-use App\Modules\Auth\Requests\RegisterRequest;
-use App\Modules\Auth\Requests\UserRequest;
+use App\Modules\Auth\Validators\AuthRequest;
+use App\Modules\Auth\Validators\RegisterRequest;
+use App\Modules\Auth\Validators\UserRequest;
 use App\Modules\Auth\Services\UserService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;

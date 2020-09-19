@@ -11,6 +11,17 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->group(['namespace' => 'Auth\Controllers', 'prefix' => 'auth'], function () use ($router) {
+        $router->post('token', ['as' => 'login', 'uses' => 'AuthController@login']);
+        $router->post('register', ['as' => 'register', 'uses' => 'AuthController@register']);
+    });
+    $router->group(['namespace' => 'Auth\Controllers', 'prefix' => 'auth', 'middleware' => 'auth:api'], function () use ($router) {
+        $router->delete('logout', ['as' => 'logout', 'uses' => 'AuthController@logout']);
+    });
 });
+//$router->group(['namespace' => 'Auth\Controllers', 'prefix' => 'auth', 'middleware' => 'auth:api'], function () use ($router) {
+//    $router->apiResource('users', 'UserController');
+//});
+
+

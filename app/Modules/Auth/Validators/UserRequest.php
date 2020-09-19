@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Modules\Auth\Requests;
+namespace App\Modules\Auth\Validators;
 
 use App\Common\Bases\Request;
 use App\Common\Tools\Setting;
